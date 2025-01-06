@@ -208,6 +208,8 @@ require("overseer").setup({
     use_shell = false,
     -- overwrite the default toggleterm "direction" parameter
     direction = nil,
+    -- overwrite the default toggleterm "count" parameter
+    count = nil,
     -- overwrite the default toggleterm "highlights" parameter
     highlights = nil,
     -- overwrite the default toggleterm "auto_scroll" parameter
@@ -215,6 +217,10 @@ require("overseer").setup({
     -- have the toggleterm window close and delete the terminal buffer
     -- automatically after the task exits
     close_on_exit = false,
+    -- keep the toggleterm window after the task exits
+    keep_after_exit = false,
+    -- open the terminal in insert mode
+    start_in_insert = false,
     -- have the toggleterm window close without deleting the terminal buffer
     -- automatically after the task exits
     -- can be "never, "success", or "always". "success" will close the window
