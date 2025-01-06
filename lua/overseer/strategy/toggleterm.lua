@@ -16,6 +16,8 @@ local ToggleTermStrategy = {}
 ---@field highlights? table map to a highlight group name and a table of it's values
 ---@field auto_scroll? boolean automatically scroll to the bottom on task output
 ---@field close_on_exit? boolean close the terminal and delete terminal buffer (if open) after task exits
+---@field keep_after_exit? boolean don't dispose the terminal after task exits
+---@field start_in_insert? boolean open the terminal in insert mode
 ---@field quit_on_exit? "never"|"always"|"success" close the terminal window (if open) after task exits
 ---@field open_on_start? boolean toggle open the terminal automatically when task starts
 ---@field hidden? boolean cannot be toggled with normal ToggleTerm commands
@@ -32,6 +34,8 @@ function ToggleTermStrategy.new(opts)
     highlights = nil,
     auto_scroll = nil,
     close_on_exit = false,
+    keep_after_exit = nil,
+    start_in_insert = nil,
     quit_on_exit = "never",
     open_on_start = true,
     hidden = false,
@@ -88,6 +92,8 @@ function ToggleTermStrategy:start(task)
     direction = self.opts.direction,
     auto_scroll = self.opts.auto_scroll,
     close_on_exit = self.opts.close_on_exit,
+    keep_after_exit = self.opts.keep_after_exit,
+    start_in_insert = self.opts.start_in_insert,
     hidden = self.opts.hidden,
     on_create = function(t)
       local job_id = t.job_id

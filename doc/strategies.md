@@ -79,6 +79,8 @@ Run tasks using the toggleterm plugin
 | >highlights    | `nil\|table`                                    | map to a highlight group name and a table of it's values                 |
 | >auto_scroll   | `nil\|boolean`                                  | automatically scroll to the bottom on task output                        |
 | >close_on_exit | `nil\|boolean`                                  | close the terminal and delete terminal buffer (if open) after task exits |
+| >keep_after_exit | `nil\|boolean`                                  | keep the terminal after task exits |
+| >start_in_insert | `nil\|boolean`                                  | open the terminal in insert mode |
 | >quit_on_exit  | `nil\|"never"\|"always"\|"success"`             | close the terminal window (if open) after task exits                     |
 | >open_on_start | `nil\|boolean`                                  | toggle open the terminal automatically when task starts                  |
 | >hidden        | `nil\|boolean`                                  | cannot be toggled with normal ToggleTerm commands                        |
