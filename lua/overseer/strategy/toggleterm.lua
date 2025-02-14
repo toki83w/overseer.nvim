@@ -111,6 +111,9 @@ function ToggleTermStrategy:start(task)
         t:send("exit " .. (vim.o.shell:find("fish") and "$status" or "$?"))
       end
     end,
+    on_open = function(t)
+      t:scroll_bottom()
+    end,
     on_stdout = function(t, job_id, d)
       if t ~= self.term then
         return
