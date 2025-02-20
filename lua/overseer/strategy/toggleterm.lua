@@ -9,6 +9,8 @@ local terminal = require("toggleterm.terminal")
 ---@field private term? Terminal
 local ToggleTermStrategy = {}
 
+local last_terminal_id
+
 ---@class overseeer.ToggleTermStrategyOpts
 ---@field use_shell? boolean load user shell before running task
 ---@field size? number the size of the split if direction is vertical or horizontal
@@ -63,6 +65,10 @@ function ToggleTermStrategy:get_bufnr()
   return self.term and self.term.bufnr
 end
 
+function ToggleTermStrategy.get_last_terminal_id()
+  return last_terminal_id
+end
+
 ---@param task overseer.Task
 function ToggleTermStrategy:start(task)
   local mode = vim.api.nvim_get_mode().mode
@@ -86,13 +92,20 @@ function ToggleTermStrategy:start(task)
     passed_cmd = cmd
   end
 
+  local count = self.opts.count
+  if self.opts.count then
+    while terminal.get(count) do
+      count = count + 1
+    end
+  end
+
   self.term = terminal.Terminal:new({
     cmd = passed_cmd,
     env = task.env,
     highlights = self.opts.highlights,
     dir = task.cwd,
     direction = self.opts.direction,
-    count = self.opts.count,
+    count = count,
     auto_scroll = self.opts.auto_scroll,
     close_on_exit = self.opts.close_on_exit,
     keep_after_exit = self.opts.keep_after_exit,
@@ -138,6 +151,8 @@ function ToggleTermStrategy:start(task)
       end
     end,
   })
+
+  last_terminal_id = self.term.id
 
   if self.opts.open_on_start then
     self.term:toggle(self.opts.size)
